@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+ {% block content %}
+
+ 
+<div class="login-card d-flex">
+    
+  <div class="left-panel d-flex flex-column justify-content-between p-5">
+    <div class="mt-2">
+      <h2 class="mb-2">Welcome back!</h2>
+      <p>Login to manage your leave requests and approvals easily.</p>
+ 
+      <div class="d-flex align-items-center gap-2 mt-5">
+        <div class="feature-icon d-flex align-items-center justify-content-center">📋</div>
+        <span class="feature-text">Apply and track leave requests</span>
+      </div>
+ 
+      <div class="d-flex align-items-center gap-2 mt-3">
+        <div class="feature-icon d-flex align-items-center justify-content-center">✅</div>
+        <span class="feature-text">Quick approval workflow</span>
+      </div>
+ 
+      <div class="d-flex align-items-center gap-2 mt-3">
+        <div class="feature-icon d-flex align-items-center justify-content-center">📊</div>
+        <span class="feature-text">View leave balance anytime</span>
+      </div>
+    </div>
+ 
+    <span class="left-footer">© 2026 Leave Management · Sarang</span>
+  </div>
+ 
+  <!-- RIGHT PANEL -->
+  <div class="right-panel flex-grow-1 p-5">
+    <h3 class="mb-1">Login</h3>
+    <p class="subtitle mb-4">Enter your username and password to continue</p>
+ 
+    {% if error %}
+      <div class="error-box mb-3">⚠️ {{ error }}</div>
+    {% endif %}
+ 
+    <form method="POST" action="">
+      {% csrf_token %}
+ 
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Enter your username" required>
+      </div>
+ 
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+      </div>
+ 
+      <button type="submit" class="btn-login mt-1">Login →</button>
+ 
+    </form>
+ 
+    <p class="register-link text-center mt-3 mb-0">
+      Don't have an account?
+      <a href="{% url 'register' %}">Register here</a>
+    </p>
+ 
+  </div>
+ 
+</div>
+
+{% endblock %}

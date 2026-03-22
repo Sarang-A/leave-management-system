@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management System</title>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+   
+      <nav class="navbar px-4 d-flex justify-content-between align-items-center">
+    <span class="navbar-brand">📋 Leave Management</span>
+    <div>
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+
+        <a class="nav-link-custom" href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+        <a class="nav-link-custom" href="{% url 'logout' %}">Logout</a>
+
+        {% else %}
+        <a class="nav-link-custom" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="nav-link-custom" href="{% url 'apply_leave' %}">Apply Leave</a>
+        <a class="nav-link-custom" href="{% url 'my_leaves' %}">My Leaves</a>
+        <a class="nav-link-custom logout" href="{% url 'logout' %}">Logout</a>
+      {% endif %}
+      {% else %}
+        <a class="nav-link-custom" href="{% url 'login' %}">Login</a>
+        <a class="nav-link-custom" href="{% url 'register' %}">Register</a>
+      {% endif %}
+    </div>
+  </nav>
+ 
+  <div class="main-content">
+    {% block content %}
+    {% endblock %}
+  </div>
+ 
+  <footer>
+    © 2026 Leave Management System | Developed by Sarang
+  </footer>
+
+ 
+</body>
+</html>
