@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+
+<div class="detail-wrapper">
+ 
+  <a href="{% url 'admin_dashboard' %}" class="back-btn mb-4 d-block">← Back to Admin Dashboard</a>
+ 
+  
+  <div class="profile-card p-4 mb-4">
+    <div class="d-flex align-items-center gap-3 mb-4">
+      <div class="avatar-circle">{{ employee.user.username|first|upper }}</div>
+      <div>
+        <div class="employee-name">{{ employee.user.username }}</div>
+        <div class="employee-meta">{{ employee.designation }} · {{ employee.department }}</div>
+      </div>
+    </div>
+ 
+    
+    <div class="row g-3">
+      <div class="col-3">
+        <div class="stat-card blue p-3">
+          <div class="stat-number">{{ total }}</div>
+          <div class="stat-label">Total Applied</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="stat-card amber p-3">
+          <div class="stat-number">{{ pending }}</div>
+          <div class="stat-label">Pending</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="stat-card green p-3">
+          <div class="stat-number">{{ approved }}</div>
+          <div class="stat-label">Approved</div>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="stat-card red p-3">
+          <div class="stat-number">{{ rejected }}</div>
+          <div class="stat-label">Rejected</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  
+  <div class="section-title mb-3">Leave History</div>
+  <div class="history-table-card">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Leave Type</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Reason</th>
+          <th>Applied On</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for leave in leaves %}
+          <tr>
+            <td style="color:#9ca3af;">{{ forloop.counter }}</td>
+            <td style="font-weight:600;">{{ leave.leave_type }}</td>
+            <td>{{ leave.start_date }}</td>
+            <td>{{ leave.end_date }}</td>
+            <td style="color:#6b7280;">{{ leave.reason }}</td>
+            <td style="color:#9ca3af;">{{ leave.applied_on|date:"d M Y" }}</td>
+            <td>
+              {% if leave.status == 'Pending' %}
+                <span class="badge-status pending">Pending</span>
+              {% elif leave.status == 'Approved' %}
+                <span class="badge-status approved">Approved</span>
+              {% elif leave.status == 'Rejected' %}
+                <span class="badge-status rejected">Rejected</span>
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" class="text-center py-4" style="color:#9ca3af;">
+              📭 No leave history found.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+ 
+</div>
+ 
+{% endblock %}

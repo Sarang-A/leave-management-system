@@ -115,3 +115,23 @@ def reject_leave(request,id):
     leave.status='Rejected'
     leave.save()
     return redirect('admin_dashboard')
+
+
+@login_required
+def employee_detail(request,id):
+    if not request.user.is_staff:
+        return redirect('dashboard')
+    employee=Employee.objects.get(id=id)
+    leaves=Leave.objects.filter(employee=employee)
+    total=leaves.count()
+    pending=leaves.filter(status='Pending').count()
+    approved=leaves.filter(status='Approved').count()
+    rejected=leaves.filter(status='Rejected').count()
+    return render(request,'employee_detail.html',{
+        'employee':employee,
+        'leaves': leaves,
+        'total': total,
+        'pending': pending,
+        'approved': approved,
+        'rejected': rejected,
+    })

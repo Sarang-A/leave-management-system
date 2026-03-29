@@ -21,6 +21,7 @@
           <th>Reason</th>
           <th>Status</th>
           <th>Action</th>
+          <th>Details</th>
         </tr>
       </thead>
       <tbody>
@@ -48,6 +49,9 @@
               {% else %}
                 {{ leave.status }}
               {% endif %}
+              <td>
+              <a href="{% url 'employee_detail' leave.employee.id %}" class="btn-details">View Details</a>
+              </td>
             </td>
           </tr>
         {% empty %}
